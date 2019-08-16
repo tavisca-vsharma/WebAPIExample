@@ -22,6 +22,7 @@ namespace WebAPIExample.Controllers
             {
                 return "invalid";
             }
+            Console.WriteLine(" ");
         }
     }
 }
