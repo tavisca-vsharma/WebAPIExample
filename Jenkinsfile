@@ -2,29 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Restore') {
-            steps {
-                echo 'Restoring..'
-				bat 'dotnet restore WebAPIExample.sln'
-            }
-        }
+
         stage('Building') {
             steps {
                 echo 'building..'
-				bat 'dotnet build WebAPIExample.sln -p:Configuration=release -v:q'
+				bat 'docker build -t jonty070/vweb:build-%BUILD_NUMBER% .'
             }
-        }
-        stage('Publish') {
+			}
+		 stage('Docker push') {
             steps {
-                echo 'Publish....'
-				bat 'dotnet publish WebAPIExample.sln'
+                bat 'docker login -u jonty070 -p Whitehouse@123'
+				bat 'docker push jonty070/vweb:build-%BUILD_NUMBER%'
             }
         }
-		 stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-				bat 'dotnet WebAPIExample/bin/Release/netcoreapp2.1/WebAPIExample.dll'
-            }
-        }
+		stage('Docker run'){
+			steps{
+				bat 'docker run --rm -p 13290:5678 jonty070/vweb:build-%BUILD_NUMBER%'
+			}
+		}
     }
 }
