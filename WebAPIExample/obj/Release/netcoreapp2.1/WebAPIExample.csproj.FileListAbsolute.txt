@@ -1,0 +1,13 @@
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\bin\Release\netcoreapp2.1\WebAPIExample.deps.json
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\bin\Release\netcoreapp2.1\WebAPIExample.runtimeconfig.json
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\bin\Release\netcoreapp2.1\WebAPIExample.runtimeconfig.dev.json
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\bin\Release\netcoreapp2.1\WebAPIExample.dll
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\bin\Release\netcoreapp2.1\WebAPIExample.pdb
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.csproj.CoreCompileInputs.cache
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.RazorAssemblyInfo.cache
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.RazorAssemblyInfo.cs
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.AssemblyInfoInputs.cache
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.AssemblyInfo.cs
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.RazorTargetAssemblyInfo.cache
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.dll
+C:\Users\visharma\source\repos\WebAPIExample\WebAPIExample\obj\Release\netcoreapp2.1\WebAPIExample.pdb
