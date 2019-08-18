@@ -6,7 +6,7 @@ pipeline {
         stage('Building') {
             steps {
                 echo 'building..'
-				bat 'docker build -t jonty070/dockerfile:build-%BUILD_NUMBER% .'
+				bat 'docker build -t jonty070/vweb:build-%BUILD_NUMBER% .'
             }
 			}
 		 stage('Docker push') {
