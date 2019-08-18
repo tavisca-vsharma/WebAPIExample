@@ -6,18 +6,18 @@ pipeline {
         stage('Building') {
             steps {
                 echo 'building..'
-				bat 'docker build -t jonty070/Dockerfile:build-%BUILD_NUMBER% vweb/'
+				bat 'docker build -t jonty070/dockerfile:build-%BUILD_NUMBER% vweb/'
             }
 			}
 		 stage('Docker push') {
             steps {
                 bat 'docker login -u jonty070 -p Whitehouse@123'
-				bat 'docker push jonty070/Dockerfile:build-%BUILD_NUMBER%'
+				bat 'docker push jonty070/dockerfile:build-%BUILD_NUMBER%'
             }
         }
 		stage('Docker run'){
 			steps{
-				bat 'docker run --rm -p 13290:5678 jonty070/Dockerfile:build-%BUILD_NUMBER%'
+				bat 'docker run --rm -p 13290:5678 jonty070/dockerfile:build-%BUILD_NUMBER%'
 			}
 		}
     }
