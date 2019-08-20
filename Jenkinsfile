@@ -1,30 +1,75 @@
 pipeline {
+    
     agent any
 
+    parameters {
+        string (name : 'SolutionName', defaultValue: 'webapi.sln',description: '')
+        string (name : 'LocalImage', defaultValue: 'aspnetapp',description: '')
+        string (name : 'RemoteImage', defaultValue: 'vweb',description: '')
+        string (name : 'Username', defaultValue: 'jonty070',description: '')
+        string (name : 'ContainerName', defaultValue: 'vweb',description: '')
+    }
+    
     stages {
-        stage('Restore') {
+        stage('Build') {
             steps {
-                echo 'Restoring..'
-				bat 'dotnet restore WebAPIExample.sln'
+               bat 'dotnet build %SolutionName% -p:Configuration=release -v:q'
             }
         }
-        stage('Building') {
+
+        stage('SonarQube Analysis'){
             steps {
-                echo 'building..'
-				bat 'dotnet build WebAPIExample.sln -p:Configuration=release -v:q'
+                bat 'dotnet %SONARQUBE_PATH% begin /k:"vweb" /d:sonar.host.url="http://localhost:9005" /d:sonar.login="%SONARQUBE_TOKEN%"'
+               bat 'dotnet build'
+                bat 'dotnet %SONARQUBE_PATH% end /d:sonar.login="%SONARQUBE_TOKEN%"'
             }
         }
-        stage('Publish') {
+
+         stage('Publish') {
             steps {
-                echo 'Publish....'
-				bat 'dotnet publish WebAPIExample.sln'
+               bat 'dotnet publish %SolutionName% -p:Configuration=release -v:q'
             }
         }
-		 stage('Deploy') {
+        
+        stage ('Build Docker Image')
+        {
             steps {
-                echo 'Deploying...'
-				bat 'dotnet WebAPIExample/bin/Release/netcoreapp2.1/WebAPIExample.dll'
+                bat 'docker build -t %LocalImage% -f Dockerfile .'
+            }
+        }
+        
+        stage('Tag and Push image to Docker')
+        {
+            steps{
+                  script{
+                    docker.withRegistry('','docker_hub_creds')
+                    {
+                        
+                        bat 'docker tag %LocalImage%:latest %Username%/%RemoteImage%:latest'
+                        bat 'docker push %Username%/%RemoteImage%:latest'
+                    }
+                }
+            }
+        }
+        
+        stage('Remove local docker image')
+        {
+            steps{
+                    bat 'docker rmi %LocalImage%'
+            }
+        }
+         stage('Pull docker image')
+        {
+            steps{
+                    bat 'docker pull %Username%/%RemoteImage%:latest'
+            }
+        }
+         stage('Run docker image')
+        {
+            steps{
+                    bat 'docker run  -d -p 13280:5678 --name %ContainerName% %Username%/%RemoteImage%'
             }
         }
     }
+    
 }
